@@ -1,0 +1,11 @@
+pyinstaller -F --clean -w -i excel.ico FileWindow.py
+
+    --clean：清除打包过程中生成的临时目录：_pychache_、build
+
+    -D,--onedir：生成包含可执行文件的文件夹，而不是单个可执行文件
+
+    -F,--onefile：生成单个可执行文件（方便）
+
+    -i <图标文件.iclo>：指定可执行文件的图标
+
+    -w可以使得exe运行时不弹窗
