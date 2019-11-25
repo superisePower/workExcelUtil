@@ -9,3 +9,8 @@ pyinstaller -F --clean -w -i excel.ico FileWindow.py
     -i <图标文件.iclo>：指定可执行文件的图标
 
     -w可以使得exe运行时不弹窗
+
+
+
+已上传gitHub下载地址：
+https://raw.githubusercontent.com/superisePower/workExcelUtil/master/dist/FileWindow.exe

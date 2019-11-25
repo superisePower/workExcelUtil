@@ -32,6 +32,7 @@ def run_excel():
     wb = delete_1_2(wb)
     wb = delete_1_3(wb)
     wb = delete_1_4(wb)
+    wb = delete_1_2_3(wb)
     wb.to_excel(savePath, sheet_name='Sheet1', index=False, header=True)
     label["text"] = "success"
 
@@ -95,11 +96,28 @@ def delete_1_2(wb):
         value = value.replace("关键词：", "")
         if value == '稳定性' or value == '程序':
             wb.drop(arrIndex[index], axis=0, inplace=True)  # 按照excel的索引删除
+
+    data = wb.loc[:, '错误类型'].values  # 读取需要做筛选的列的数据
+    data = wb[(data == '名称未增加限定特征')]  # 筛选出需要的数据
+    arrWord = data.get("具体说明")  # 需要筛选的数据列
+    arrIndex = array(data.index)  # 数据列对应的excel index
+    for index, value in enumerate(arrWord):
+        value = value.replace("名称字数为", "")
+        if int(value) >= 13:
+            wb.drop(arrIndex[index], axis=0, inplace=True)  # 13个及以上的直接删除
+
+    data = wb.loc[:, '错误类型'].values  # 读取需要做筛选的列的数据
+    data = wb[(data == '摘要中使用了不必要的措词')]  # 筛选出需要的数据
+    arrWord = data.get("具体说明")  # 需要筛选的数据列
+    arrIndex = array(data.index)  # 数据列对应的excel index
+    for index, value in enumerate(arrWord):
+        value = value.replace("具体摘要不宜词汇：", "")
+        if value == '新的' or value == '特征' or value == '板机' or value == '拌均' or value == '蒸气' or value == '疏基' or value == '齿合' or value == '淬灭' or value == '成份' or value == '泄露' or value == '罗纹' or value == '咀':
+            wb.drop(arrIndex[index], axis=0, inplace=True)  # 按照excel的索引删除
     return wb
 
 
 def delete_1_3(wb):
-    # 存在未规范化处理的关键词
     data = wb.loc[:, '错误类型'].values  # 读取需要做筛选的列的数据
     # data = wb.iloc[:, 1].values  # 读取需要做筛选的列的数据
     data = wb[(data == '存在未规范化处理的关键词')]  # 筛选出需要的数据
@@ -109,6 +127,37 @@ def delete_1_3(wb):
     for index, value in enumerate(arrWord):
         if value.find('NULL') == -1:
             wb.drop(arrIndex[index], axis=0, inplace=True)  # 按照excel的索引删除
+
+    data = wb.loc[:, '错误类型'].values  # 读取需要做筛选的列的数据
+    data = wb[(data == '自由标引的关键词字数过多')]  # 筛选出需要的数据
+    arrWord = data.get("备注1")  # 需要筛选的数据列
+    arrIndex = array(data.index)  # 数据列对应的excel index
+
+    for index, value in enumerate(arrWord):
+        value = value.replace("实际字符数：", "")
+        if int(value) <= 11:
+            wb.drop(arrIndex[index], axis=0, inplace=True)  # 实际字符数11个及以下直接删除
+    return wb
+
+
+def delete_1_2_3(wb):
+    data = wb.loc[:, '错误类型'].values  # 读取需要做筛选的列的数据
+    data = wb[(data == '核心方案与独立权利要求1的内容简单重复')]  # 筛选出需要的数据
+    arr2Word = data.get("具体说明")  # 需要筛选的数据列
+    arr2Index = array(data.index)  # 数据列对应的excel index
+    for index, value in enumerate(arr2Word):
+        value = value.replace("%", "")
+        if int(value) < 100:
+            wb.drop(arr2Index[index], axis=0, inplace=True)  # 按照excel的索引删除【具体说明】小于“100%”的
+
+    # 上一步已经删除了一些，需要更新data
+    data = wb.loc[:, '错误类型'].values  # 读取需要做筛选的列的数据
+    data = wb[(data == '核心方案与独立权利要求1的内容简单重复')]  # 筛选出需要的数据
+    arr3Word = data.get("备注1")  # 需要筛选的数据列
+    arr3Index = array(data.index)  # 数据列对应的excel index
+    for index, value in enumerate(arr3Word):
+        if int(value) > 460:
+            wb.drop(arr3Index[index], axis=0, inplace=True)  # 按照excel的索引删除【备注1】大于460的
     return wb
 
 
@@ -130,3 +179,9 @@ root.mainloop()
 # 用来单元测试
 # if __name__ == "__main__":
 #     run_excel()
+
+
+# https://blog.csdn.net/CSU_GUO_LIANG/article/details/102772294
+# https://www.cnblogs.com/bianzhiwei/p/11214994.html
+# http://www.pythonheidong.com/blog/article/147319/
+# Python3 pandas自定义输出excel样式

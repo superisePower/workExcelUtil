@@ -1,6 +1,6 @@
 ('D:\\MY_project\\workExcelUtil\\build\\FileWindow\\setuptools-39.1.0-py3.7.egg',
  None,
- {'*.py', 'EGG-INFO', '*.pyw', '*.cp37-win_amd64.pyd', '*.pyd', '*.pyc'},
+ {'*.pyd', '*.pyc', '*.pyw', '*.py', 'EGG-INFO', '*.cp37-win_amd64.pyd'},
  'DATA',
  [('setuptools\\cli-32.exe',
    'D:\\MY_project\\workExcelUtil\\build\\FileWindow\\setuptools-39.1.0-py3.7.egg\\setuptools\\cli-32.exe',
