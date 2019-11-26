@@ -39,28 +39,32 @@ def run_excel():
 
 # 根据关键词删除
 def delete_by_word(wb):
-    data = wb.iloc[:, 1].values  # 读取需要做筛选的列的数据
+    # data = wb.iloc[:, 1].values  # 读取需要做筛选的列的数据
+    data = wb.loc[:, '错误类型'].values  # 读取需要做筛选的列的数据
     # 查找有此文本“附图标记全部缺失”的行
     data = wb[(data == '附图标记全部缺失')]  # 筛选出需要的数据
     arr = array(data.index)  # 转为数组
     # 删除 axis=0 删除行 =1删除列
     wb.drop(arr, axis=0, inplace=True)
 
-    data = wb.iloc[:, 1].values  # 读取需要做筛选的列的数据
+    # data = wb.iloc[:, 1].values  # 读取需要做筛选的列的数据
+    data = wb.loc[:, '错误类型'].values  # 读取需要做筛选的列的数据
     # 查找有此文本“关键词没有体现核心方案主题名称”的行
     data = wb[(data == '关键词没有体现核心方案主题名称')]  # 筛选出需要的数据
     arr = array(data.index)  # 转为数组
     # 删除 axis=0 删除行 =1删除列
     wb.drop(arr, axis=0, inplace=True)
 
-    data = wb.iloc[:, 1].values  # 读取需要做筛选的列的数据
+    # data = wb.iloc[:, 1].values  # 读取需要做筛选的列的数据
+    data = wb.loc[:, '错误类型'].values  # 读取需要做筛选的列的数据
     # 查找有此文本“名称没有体现核心方案对应技术主题”的行
     data = wb[(data == '名称没有体现核心方案对应技术主题')]  # 筛选出需要的数据
     arr = array(data.index)  # 转为数组
     # 删除 axis=0 删除行 =1删除列
     wb.drop(arr, axis=0, inplace=True)
 
-    data = wb.iloc[:, 1].values  # 读取需要做筛选的列的数据
+    # data = wb.iloc[:, 1].values  # 读取需要做筛选的列的数据
+    data = wb.loc[:, '错误类型'].values  # 读取需要做筛选的列的数据
     # 查找有此文本“其他技术方案中的发明信息中缺失技术主题”的行
     data = wb[(data == '其他技术方案中的发明信息中缺失技术主题')]  # 筛选出需要的数据
     arr = array(data.index)  # 转为数组
